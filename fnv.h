@@ -59,12 +59,19 @@
 #if !defined(__FNV_H__)
 #define __FNV_H__
 
+#ifdef _WIN32
+#include <stdint.h>
+#else
 #include <sys/types.h>
+#endif
 
 #define FNV_VERSION "5.0.2"	/* @(#) FNV Version */
 
-
+#ifdef _WIN32
+typedef uint32_t Fnv32_t;
+#else
 typedef u_int32_t Fnv32_t;
+#endif
 
 /*
  * 32 bit FNV-1 and FNV-1a non-zero initial basis
@@ -79,8 +86,11 @@ extern Fnv32_t fnv_32_str(char *buf, Fnv32_t hashval);
 extern Fnv32_t fnv_32a_buf(void *buf, size_t len, Fnv32_t hashval);
 extern Fnv32_t fnv_32a_str(char *buf, Fnv32_t hashval);
 
-
+#ifdef _WIN32
+typedef uint64_t Fnv64_t;
+#else
 typedef u_int64_t Fnv64_t;
+#endif
 
 /*
  * 64 bit FNV-1 non-zero initial basis
@@ -96,4 +106,3 @@ extern Fnv64_t fnv_64a_buf(void *buf, size_t len, Fnv64_t hashval);
 extern Fnv64_t fnv_64a_str(char *buf, Fnv64_t hashval);
 
 #endif /* __FNV_H__ */
-
